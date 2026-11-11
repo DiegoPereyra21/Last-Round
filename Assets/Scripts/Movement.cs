@@ -78,7 +78,8 @@ public class PlayerController : MonoBehaviour
         if (aimDir != Vector3.zero)
             transform.forward = aimDir;
 
-        Instantiate(projectile, firePoint.position, firePoint.rotation);
+        Pool.Spawn(projectile, firePoint.position, firePoint.rotation);//CAMBIO A POOL, lo pide el parcial y mejora la cosa
+
         audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);
         anim.SetTrigger("shoot");
         aimUntil = Time.time + aimHoldTime;

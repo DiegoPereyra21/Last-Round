@@ -96,7 +96,7 @@ public class EnemyFear : MonoBehaviour
     {
         if (Time.time < nextFire) return;
 
-        GameObject projectile = Instantiate(enemyProjectile, firePoint.position, firePoint.rotation);
+        GameObject projectile = Pool.Spawn(enemyProjectile, firePoint.position, firePoint.rotation);//CAMbIO A POOL
         anim.SetTrigger("shoot");//anim isparo
         //para la consigan de progresion, q haga mas daño luego de cada lvl
         projectile.GetComponent<ProjectileEnemy>().SetDamage(projectileDamage);

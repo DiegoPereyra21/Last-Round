@@ -1,29 +1,38 @@
-using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 15f;
     [SerializeField] private float damage = 10f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float lifeTime = 2f;
+    private Pool pool;
+
+    //lo llama el Pool cada vez que la bala sale (Start/Awake solo corren una vez, por eso el Invoke va aca)
+    void OutPool(Pool origin)
     {
-        Destroy(gameObject,2);
+        pool = origin;
+        Invoke(nameof(ReturnToPool), lifeTime);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(0, 0, speed * Time.deltaTime);//antes no escalaba bien con el framerate
+        transform.Translate(0, 0, speed * Time.deltaTime);
     }
+
     void OnTriggerEnter(Collider other)
     {
         Health otherHealth = other.GetComponent<Health>();
-        if(otherHealth != null)
+        if (otherHealth != null)
         {
             otherHealth.TakeDamage(damage);
         }
+        ReturnToPool();
+    }
 
-        Destroy(gameObject);//renege como media hora hasta q me di cuenta q era culpa de la falta de rigibody que no de destruyera contra paredes y obstaculs
+    void ReturnToPool()
+    {
+        CancelInvoke();//si choco antes de los 2s, que el Invoke viejo no la devuelva en medio de otro uso
+        if (pool != null) pool.Return(gameObject);
+        else Destroy(gameObject);//por si alguna bala esta puesta a mano en la escena
     }
 }

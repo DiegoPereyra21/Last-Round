@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
 
         if (Time.time >= nextFire)
         {
-            GameObject Projectile = Instantiate(enemyProjectile, firePoint.position, firePoint.rotation);
+            GameObject Projectile = Pool.Spawn(enemyProjectile, firePoint.position, firePoint.rotation);//CAMBIO X POOL
             anim.SetTrigger("shoot");
             //para la consigna de que tengan mas daño segun el nivel, hasta ahora solo cambiaba el firerate pero no esta en la consigna
             Projectile.GetComponent<ProjectileEnemy>().SetDamage(projectileDamage);

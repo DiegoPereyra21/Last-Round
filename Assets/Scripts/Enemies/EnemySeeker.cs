@@ -68,7 +68,7 @@ public class EnemySeeker : MonoBehaviour
 
     void Shoot()
     {
-        GameObject projectile = Instantiate(enemyProjectile, firePoint.position, firePoint.rotation);
+        GameObject projectile = Pool.Spawn(enemyProjectile, firePoint.position, firePoint.rotation);//CAMBIO A POOOL
         anim.SetTrigger("shoot");
         projectile.GetComponent<ProjectileEnemy>().SetDamage(projectileDamage);
         audioSource.PlayOneShot(fireballSounds[Random.Range(0, fireballSounds.Length)]);//sonido de la bola de fuego
