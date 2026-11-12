@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1896699101982903066}
   - component: {fileID: 7847191711351446160}
   - component: {fileID: 1065958496205580226}
+  - component: {fileID: 6603564765682672391}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045768816904906800}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5615164, y: -0, z: -0, w: 0.8274656}
+  m_LocalRotation: {x: 0.56151295, y: 0, z: 0, w: 0.8274679}
   m_LocalPosition: {x: 0, y: 16.29, z: -9.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -137,3 +138,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &6603564765682672391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045768816904906800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d93d856c08138f419984cf06fe73d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraIntro
+  startDistance: 40
+  duration: 4
