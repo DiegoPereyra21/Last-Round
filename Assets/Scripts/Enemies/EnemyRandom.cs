@@ -40,7 +40,7 @@ public class EnemyRandom : MonoBehaviour
         SetNextChangeTime();
         nextFire = Time.time + startDelay;
 
-        anim.SetBool("isWalking", true);//siempre se esta moviendo
+        anim.SetFloat("speed", 1f);
     }
     // Update is called once per frame
     void Update()

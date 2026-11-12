@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         dir = new Vector3(h, 0f, v).normalized;
-        anim.SetBool("isWalking", dir != Vector3.zero);
+        anim.SetFloat("speed", dir != Vector3.zero ? 1f : 0f, 0.1f, Time.deltaTime);//cambio a blendTree Locomotion
 
         //para q no dispare si apretas algun boton
         bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();

@@ -53,7 +53,7 @@ public class EnemySeeker : MonoBehaviour
         if (agent.isOnNavMesh)
             agent.SetDestination(player.position);
 
-        anim.SetBool("isWalking", agent.velocity.magnitude > 0.1f);//camina solo si el agente se esta moviendo
+        anim.SetFloat("speed", agent.velocity.magnitude > 0.1f ? 1f : 0f, 0.1f, Time.deltaTime);//cambio a blendTree Locomotion
         //mira al player pero sin inclinarse si hay diferencia de altura
         Vector3 lookPos = player.position;
         lookPos.y = transform.position.y;

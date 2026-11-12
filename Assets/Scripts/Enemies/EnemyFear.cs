@@ -72,7 +72,7 @@ public class EnemyFear : MonoBehaviour
     //la "accion" por ese estado
     void Act()
     {
-        anim.SetBool("isWalking", currentState != State.Attack);//en Attack se queda quieto
+        anim.SetFloat("speed", currentState != State.Attack ? 1f : 0f, 0.1f, Time.deltaTime);//cambio a blendree
 
         switch (currentState)
         {
