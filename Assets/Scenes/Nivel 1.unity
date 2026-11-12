@@ -4690,6 +4690,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LOD_Deposito
       objectReference: {fileID: 0}
+    - target: {fileID: 868856223636959624, guid: a692b5a111f398d4e97cf8a00362c526, type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.09852522
+      objectReference: {fileID: 0}
+    - target: {fileID: 868856223636959624, guid: a692b5a111f398d4e97cf8a00362c526, type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0.0124725755
+      objectReference: {fileID: 0}
     - target: {fileID: 3951183698279241303, guid: a692b5a111f398d4e97cf8a00362c526, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8
