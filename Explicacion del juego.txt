@@ -1,37 +1,70 @@
-NOMBRE DEL JUEGO: Last Round
-ALUMNO: Diego Román Pereyra
+LAST ROUND - Explicación del juego
+Alumno: Diego Román Pereyra
 
-DESCRIPCION
-Juego 3D de Accion. Donde controlas a un dragón teniendo que sobrevivir en 3 niveles contra dragones con distintos comportamientos. 
+DE QUÉ SE TRATA
+Last Round es un juego 3D de acción. Manejás a un dragón y tenés que sobrevivir a 3 niveles llenos de otros dragones que te disparan. Cada nivel es más difícil que el anterior.
 
 CONTROLES
-WASD/Flechas: mover 
-Mouse: apuntar
-Clic izquierdo: disparo 1 (rápido, 20 de daño)
-Clic derecho: disparo 2 (lento, 50 de daño)
-Esc / botón de pausa Superior: pausa
+- WASD o flechas: moverse
+- Mouse: apuntar
+- Clic izquierdo: bola de fuego rápida (20 de daño)
+- Clic derecho: bola de fuego lenta y fuerte (50 de daño)
+- Esc o el botón de pausa de arriba: pausar
 
-FLUJO DEL JUEGO
-Menú ->Nivel 1 ->Nivel 2 -> Nivel 3 ->pantalla de victoria final -> Menú
-Ganar un nivel: eliminar a todos los enemigos. 
-Perder un nivel: morir, con la posibilidad de reintentar o volver al menú.
+CÓMO SE PASA CADA NIVEL
+Menú (Jugar / Tutorial / Salir) -> Nivel 1 -> Nivel 2 -> Nivel 3 -> pantalla de victoria final -> Menú
+- VICTORIA: eliminar a todos los enemigos del nivel. Aparece la pantalla de victoria con un botón para ir al siguiente nivel.
+- DERROTA: que te maten. Aparece Game Over y podés reintentar o volver al menú.
+- Los niveles tienen 3, 4 y 5 enemigos, con más daño y velocidad cada vez, y cada uno tiene su propio escenario con obstáculos.
 
-El menú tiene un botón Tutorial que lleva a una escena con la explicación.
+LO QUE PIDE LA CONSIGNA, UNIDAD POR UNIDAD
 
-ENEMIGOS
-- Estatico: solo dispara desde su lugar.
-- Seeker (Con IA de movimiento): NavMeshAgent que permite perseguir esquivando obstáculos.
-- Fear (con IA de decision): maquina de estados simple con Chase/Attack/Flee segun distancia y su vida intentara huir.
-- Random: se mueve en direcciones aleatorias.
+[CONSIGNA] UNIDAD 1 - Física de personajes y proyectiles
+- Controlador del jugador con Rigidbody (Movement.cs).
+- 2 TIPOS DE PROYECTIL: rápido (20 de daño) y lento (50 de daño).
+
+[CONSIGNA] UNIDAD 2 - Animaciones avanzadas
+- JUGADOR Y ENEMIGOS con animaciones avanzadas: usan un Animator con BLEND TREE (mezcla suave entre Idle y Walk según la velocidad).
+- Disparar y morir tienen sus propias animaciones. El jugador usa un Animator Override para tener la animación de correr.
+
+[CONSIGNA] UNIDAD 3 - IA aplicada al movimiento
+- ENEMIGO SEEKER: usa NavMeshAgent y me persigue esquivando obstáculos.
+
+[CONSIGNA] UNIDAD 4 - IA aplicada a la toma de decisiones
+- ENEMIGO FEAR: máquina de estados (perseguir / atacar / huir). Si le queda poca vida, se escapa.
+
+[CONSIGNA] UNIDAD 5 - Iluminación
+- SISTEMA DE ILUMINACIÓN: luz principal con sombras, 4 luces de fuego por nivel, skybox y niebla.
+- Cada nivel tiene su clima: Nivel 1 de día, Nivel 2 al atardecer, Nivel 3 de noche.
+
+[CONSIGNA] UNIDAD 6 - Optimizaciones
+- LOD: granero, molino y torre (modelo completo de cerca, uno simple más lejos, y desaparecen muy lejos). Están en los 3 niveles.
+- OCCLUSION CULLING: horneado en los 3 niveles. Lo que queda tapado por otros objetos no se dibuja.
+- POOL: Pool.cs reutiliza las balas del jugador y de los enemigos, en vez de crearlas y destruirlas cada vez.
+
+[CONSIGNA] UNIDAD 7 - Estructura de datos (cumplo 4 de los 7 puntos)
+- Flujo de juego completo entre escenas.
+- Menú principal con botones Jugar y Salir.
+- 3 niveles con distintos obstáculos y enemigos de distinta dificultad.
+- Condición de victoria: eliminar a todos los enemigos.
+
+ENEMIGOS (por nivel)
+- Estático: no se mueve, solo dispara.
+- Seeker: me persigue (IA de movimiento).
+- Fear: perseguir / atacar / huir (IA de decisión).
+- Random: se mueve para cualquier lado.
+Nivel 1: Estático, Seeker, Fear.
+Nivel 2: Estático, Fear y 2 Seeker.
+Nivel 3: 3 Random, Seeker y Fear.
+
+EXTRAS QUE AGREGUÉ
+- Al empezar cada nivel la cámara arranca lejos y se acerca a su lugar. Así se puede ver el LOD funcionando.
+- Todo el control usa el nuevo Input System (teclado y mouse).
 
 SCRIPTS PRINCIPALES
-Movement.cs (jugador), Health.cs (vida y muerte para todos), Projectile.cs y sus variantes (balas, hay diferentes),
- Enemy.cs y la variante de cada enemigo (IA de cada enemigo), GameManager.cs (singleton que gestiona niveles y victoria oderrota),
- LevelConfig.cs (para saber cuantos enemigos para pasar de nivel y si es el ultimo nivel), HUD.cs, Pause.cs, Menu.cs.
+Movement.cs (jugador), Health.cs (vida y muerte), Projectile.cs y ProjectileEnemy.cs (balas), Pool.cs,
+Enemy.cs, EnemySeeker.cs, EnemyFear.cs, EnemyRandom.cs (enemigos), GameManager.cs (niveles, victoria y derrota),
+LevelConfig.cs (cuántos enemigos hay por nivel), CameraIntro.cs, Level1Intro.cs, HUD.cs, Pause.cs, Menu.cs.
 
-ANIMACIONES
-Idle, Walk, Run, Shoot y Die con un Animator Controller compartido entre los dragones,
- hice un animator override para que el player pueda tener la animacion de run sin tener que hacer mas lio en el animator ni crear otro).
-
-NOTAS
-Consola: informacion de todo el daño, vida actual, enemigo eliminado con su nombre y notificacion de Game Over.
+NOTA
+En la consola salen el daño, la vida que queda, el nombre del enemigo eliminado y el aviso de Game Over.

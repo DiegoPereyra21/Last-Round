@@ -1930,6 +1930,10 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3320347422703781184, guid: e6a7e0ed4f6d79a4fb3d8152c04c47e5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1550497485580602157, guid: e6a7e0ed4f6d79a4fb3d8152c04c47e5, type: 3}
       propertyPath: m_Name
       value: mine
