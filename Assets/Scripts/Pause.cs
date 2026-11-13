@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 //boton de pausa del HUD, tambien funciona con Escape
 public class Pause : MonoBehaviour
@@ -17,8 +18,11 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
             TogglePause();
+        }
+
     }
 
     //lo usan el boton de pausa y el de reanudar

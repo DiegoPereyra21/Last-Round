@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,9 +40,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.timeScale == 0f) return;//en pausa no gira ni dispara
 
-        //input viejo, a futuro cambiar al actual 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        Keyboard kb = Keyboard.current;
+        Mouse mouse = Mouse.current;
+        if (kb == null || mouse == null) return;//por si no hay teclado o mouse conectado
+
+        //nuevo Input System: WASD y flechas
+        float h = (kb.dKey.isPressed || kb.rightArrowKey.isPressed ? 1f : 0f) - (kb.aKey.isPressed || kb.leftArrowKey.isPressed ? 1f : 0f);
+        float v = (kb.wKey.isPressed || kb.upArrowKey.isPressed ? 1f : 0f) - (kb.sKey.isPressed || kb.downArrowKey.isPressed ? 1f : 0f);
         dir = new Vector3(h, 0f, v).normalized;
         anim.SetFloat("speed", dir != Vector3.zero ? 1f : 0f, 0.1f, Time.deltaTime);//cambio a blendTree Locomotion
 
@@ -49,13 +54,13 @@ public class PlayerController : MonoBehaviour
         bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
 
         //me complique con el temporizador, use el mismo q en enemy
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextShootProjectile1 && !overUI)
+        if (mouse.leftButton.wasPressedThisFrame && Time.time >= nextShootProjectile1 && !overUI)
         {
             Shoot(projectile1, fireballSounds1);
             nextShootProjectile1 = Time.time + cdProjectile1;
         }
 
-        if (Input.GetMouseButtonDown(1) && Time.time >= nextShootProjectile2 && !overUI)
+        if (mouse.rightButton.wasPressedThisFrame && Time.time >= nextShootProjectile2 && !overUI)
         {
             Shoot(projectile2, fireballSounds2);
             nextShootProjectile2 = Time.time + cdProjectile2;
@@ -96,7 +101,7 @@ public class PlayerController : MonoBehaviour
     //para que apunte directamente al puntero, se sentia muy tosco el disparo antes
     Vector3 GetAimDir()
     {
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
         Plane ground = new Plane(Vector3.up, Vector3.zero);
 
         if (ground.Raycast(ray, out float dist))
